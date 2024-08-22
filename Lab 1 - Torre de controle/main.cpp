@@ -14,6 +14,16 @@ typedef struct{
 
 int main() {
 
-    int* primeiroFila = nullptr;
+    int* primeiroFila = NULL;
+    aviao aviao[100];
+    FILE* Entrada;
+    Entrada = fopen("entrada1.txt", "r");
 
+    if (Entrada == NULL) {
+        printf("Erro ao abrir o arquivo\n");
+        return 0;
+    }
+
+    fclose(Entrada);
+    return 0;
 }
