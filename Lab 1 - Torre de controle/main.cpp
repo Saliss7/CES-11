@@ -35,17 +35,48 @@ int main() {
     while(lerArquivo) {
         if(primeiroFila == NULL) {
             primeiroFila = (noh*)malloc(sizeof(noh));
-            fscanf(Entrada, "%s", &primeiroFila->menssagem);
-            fscanf(Entrada, "%d ", &primeiroFila->numero);
-            fgets(primeiroFila->localPartida, Entrada);
+            fscanf(Entrada, "%s", primeiroFila->menssagem);
+            fscanf(Entrada, "%d ", primeiroFila->numero);
+            fgets(primeiroFila->localPartida, sizeof(primeiroFila->localPartida), Entrada);
             primeiroFila->proximoFila = NULL;
+            if(strcmp(primeiroFila->menssagem, "pista_liberada") == 0) {
+                free(primeiroFila);
+                primeiroFila = NULL;
+            }
+            if(strcmp(primeiroFila->menssagem, "FIM") == 0) {
+                lerArquivo = false;
+            }
         } else {
             primeiroFila = (noh*)malloc(sizeof(noh));
-            fscanf(Entrada, "%s", &p->menssagem);
-            fscanf(Entrada, "%d ", &p->numero);
-            fgets(p->localPartida, Entrada);
-            p->proximoFila = primeiroFila;
-            while (p->proximoFila != NULL) p->proximoFila = p->proximoFila->proximoFila;
+            fscanf(Entrada, "%s", p->menssagem);
+            fscanf(Entrada, "%d ", p->numero);
+            fgets(p->localPartida, sizeof(p->proximoFila), Entrada);
+            p->proximoFila = NULL;
+            if(strcmp(p->menssagem, "pista_liberada") == 0) {
+                printf("%s    %04d    %s", primeiroFila->menssagem, primeiroFila->numero, primeiroFila->localPartida);
+                free(p);
+                p = primeiroFila->proximoFila;
+                free(primeiroFila);
+                primeiroFila = p;
+                p = NULL;
+            }
+            if(strcmp(p->menssagem, "pede_pouso") == 0) {
+                p->proximoFila = primeiroFila;
+                primeiroFila = p;
+                while (p->proximoFila != NULL){
+                    p = p->proximoFila;
+                }
+                p->proximoFila = primeiroFila;
+                primeiroFila = primeiroFila->proximoFila;
+                p->proximoFila = NULL;
+                //melhorar a logica da troca de fila.
+            }
+            if(strcmp(p->menssagem, "FIM") == 0) {
+                lerArquivo = false;
+                free(p);
+                p = NULL;
+                //implementar a logica do fim da fila aqui.
+            }
         }
 
 
