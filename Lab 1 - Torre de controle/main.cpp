@@ -21,6 +21,7 @@ int main() {
 
     noh* primeiroFila = NULL;
     noh* p = NULL;
+    noh* ultimoUrgencia = NULL
     int i = 0;
     bool lerArquivo = true;
     char linha[200];
@@ -46,8 +47,9 @@ int main() {
             if(strcmp(primeiroFila->menssagem, "FIM") == 0) {
                 lerArquivo = false;
             }
-        } else {
-            primeiroFila = (noh*)malloc(sizeof(noh));
+        }
+        if(primeiroFila != NULL) {
+            p = (noh*)malloc(sizeof(noh));
             fscanf(Entrada, "%s", p->menssagem);
             fscanf(Entrada, "%d ", p->numero);
             fgets(p->localPartida, sizeof(p->proximoFila), Entrada);
@@ -62,14 +64,27 @@ int main() {
             }
             if(strcmp(p->menssagem, "pede_pouso") == 0) {
                 p->proximoFila = primeiroFila;
-                primeiroFila = p;
-                while (p->proximoFila != NULL){
-                    p = p->proximoFila;
-                }
-                p->proximoFila = primeiroFila;
-                primeiroFila = primeiroFila->proximoFila;
+                while(p->proximoFila->proximoFila != NULL) p->proximoFila = p->proximoFila->proximoFila;
+                p->proximoFila->proximoFila = p;
                 p->proximoFila = NULL;
-                //melhorar a logica da troca de fila.
+            }
+            if(strcmp(p->menssagem, "URGENCIA") == 0) {
+                if(ultimoUrgencia == NULL) {
+                    p->proximoFila = primeiroFila;
+                    while(p->numero != p->proximoFila->numero) {
+                        ultimoUrgencia = p->proximoFila;
+                        p->proximoFila = p->proximoFila->proximoFila;
+                    }
+                    ultimoUrgencia->proximoFila = p->proximoFila->proximoFila;
+                    p->proximoFila->proximoFila = primeiroFila;
+                    //melhorar a logica da urgencia
+
+                    ultimoUrgencia = p->proximoFila->proximoFila;
+                    ultimoUrgencia->
+                }
+                if(ultimoUrgencia != NULL) {
+
+                }
             }
             if(strcmp(p->menssagem, "FIM") == 0) {
                 lerArquivo = false;
