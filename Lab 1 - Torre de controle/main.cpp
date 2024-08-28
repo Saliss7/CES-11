@@ -33,6 +33,8 @@ int main() {
         fgets(linha, sizeof(linha), Entrada);
     }
 
+    printf("Bla bla bla\nBle\nAUTORIZACOES DE POUSO\n=========================================\nFLIGHT  FROM\n\n");
+
     while (lerArquivo) {
         if (primeiroFila == NULL) {
             primeiroFila = (noh *) malloc(sizeof(noh));
@@ -41,7 +43,7 @@ int main() {
             fgets(primeiroFila->localPartida, sizeof(primeiroFila->localPartida), Entrada);
             primeiroFila->proximoFila = NULL;
             if (strcmp(primeiroFila->menssagem, "pista_liberada") == 0) {
-                printf("nenhum avião pousando\n");
+                printf("0000    Nenhum avião pousando\n");
                 free(primeiroFila);
                 primeiroFila = NULL;
             }
@@ -117,7 +119,14 @@ int main() {
                 lerArquivo = false;
                 free(primeiroAuxiliar);
                 primeiroAuxiliar = NULL;
-                //implementar a logica do fim da fila aqui.
+                printf("\n\nSituacao da fila\n\n");
+                primeiroAuxiliar = primeiroFila;
+                while (primeiroAuxiliar != NULL) {
+                    primeiroAuxiliar = primeiroAuxiliar->proximoFila;
+                    printf("%04d    %s", primeiroFila->numero, primeiroFila->localPartida);
+                    free(primeiroFila);
+                    primeiroFila = primeiroAuxiliar;
+                }
             }
         }
     }
