@@ -11,7 +11,7 @@
 typedef struct aviao noh;
 
 struct aviao {
-    char menssagem[70];
+    char menssagem[15];
     int numero;
     char localPartida[30];
     noh *proximoFila = NULL;
@@ -24,51 +24,82 @@ int main() {
     noh *segundoAuxiliar = NULL;
     noh *ultimoUrgencia = NULL;
     bool lerArquivo = true;
-    char linha[200];
+    char linha[70];
     FILE *Entrada;
+    FILE *Saida;
     Entrada = fopen("entrada1.txt", "r");
+    Saida = fopen("saida1.txt", "w");
 
-    //pular as 8 primeiras linhas do arquivo de entrada
+    /**
+     * Pular as 8 primeiras linhas do arquivo de entrada
+     */
     for (int i = 0; i < 8; i++) {
         fgets(linha, sizeof(linha), Entrada);
     }
 
-    printf("Bla bla bla\nBle\nAUTORIZACOES DE POUSO\n=========================================\nFLIGHT  FROM\n\n");
+    /**
+     * Printar as primeiras linhas do arquivo de saida
+     */
+    fprintf(Saida, "Bla bla bla\nBle\nAUTORIZACOES DE POUSO\n=========================================\nFLIGHT  FROM\n\n");
 
     while (lerArquivo) {
+
+        /**
+         * Caso a fila estaja vazia
+         */
         if (primeiroFila == NULL) {
             primeiroFila = (noh *) malloc(sizeof(noh));
             fscanf(Entrada, "%s", primeiroFila->menssagem);
             fscanf(Entrada, "%d ", &(primeiroFila->numero));
             fgets(primeiroFila->localPartida, sizeof(primeiroFila->localPartida), Entrada);
             primeiroFila->proximoFila = NULL;
+
+            /**
+             * Caso a entrada nao seja um aviao
+             */
             if (strcmp(primeiroFila->menssagem, "pista_liberada") == 0) {
-                printf("0000    Nenhum avião pousando\n");
+                fprintf(Saida, "0000    Nenhum avião pousando\n");
                 free(primeiroFila);
                 primeiroFila = NULL;
             }
             else if (strcmp(primeiroFila->menssagem, "FIM") == 0) {
                 lerArquivo = false;
-                printf("\n\nSituacao da fila\n\nFila vazia\n");
+                fprintf(Saida, "\nSituacao da fila\n\nFila vazia\n");
                 free(primeiroFila);
                 primeiroFila = NULL;
             }
         }
+
+        /**
+         * Caso a fila nao estaja vazia
+         */
         if (primeiroFila != NULL) {
             primeiroAuxiliar = (noh *) malloc(sizeof(noh));
             fscanf(Entrada, "%s", primeiroAuxiliar->menssagem);
             fscanf(Entrada, "%d ", &(primeiroAuxiliar->numero));
             fgets(primeiroAuxiliar->localPartida, sizeof(primeiroAuxiliar->localPartida), Entrada);
             primeiroAuxiliar->proximoFila = NULL;
+
             if (strcmp(primeiroAuxiliar->menssagem, "pista_liberada") == 0) {
-                printf("%04d    %s", primeiroFila->numero, primeiroFila->localPartida);
+
+                /**
+                 * Pousar o primeiro da fila
+                 */
+                fprintf(Saida, "%04d    %s", primeiroFila->numero, primeiroFila->localPartida);
                 free(primeiroAuxiliar);
                 primeiroAuxiliar = primeiroFila->proximoFila;
+                if (primeiroFila == ultimoUrgencia) {
+                    ultimoUrgencia = NULL;
+                }
                 free(primeiroFila);
                 primeiroFila = primeiroAuxiliar;
                 primeiroAuxiliar = NULL;
             }
             else if (strcmp(primeiroAuxiliar->menssagem, "pede_pouso") == 0) {
+
+                /**
+                 * Percorrer a lista com o segundoAuxiliar e adicionar o aviao no fim da fila
+                 */
                 segundoAuxiliar = primeiroFila;
                 while (segundoAuxiliar->proximoFila != NULL) {
                     segundoAuxiliar = segundoAuxiliar->proximoFila;
@@ -77,6 +108,10 @@ int main() {
                 primeiroAuxiliar = NULL;
             }
             else if (strcmp(primeiroAuxiliar->menssagem, "URGENCIA") == 0) {
+
+                /**
+                 * Caso nao tenha ninguem com urgencia
+                 */
                 if (ultimoUrgencia == NULL) {
                     if (primeiroAuxiliar->numero == primeiroFila->numero) {
                         ultimoUrgencia = primeiroFila;
@@ -84,6 +119,11 @@ int main() {
                         primeiroAuxiliar = NULL;
                     }
                     else {
+
+                        /**
+                         * Percorrer a lista para encontrar a posicao do primeiro aviao aviao com urgencia
+                         * e coloca-lo no inicio da fila
+                         */
                         segundoAuxiliar = primeiroFila;
                         primeiroAuxiliar->proximoFila = primeiroFila->proximoFila;
                         while (primeiroAuxiliar->proximoFila->numero != primeiroAuxiliar->numero) {
@@ -98,7 +138,15 @@ int main() {
                         primeiroAuxiliar = NULL;
                     }
                 }
+
+                /**
+                 * Caso o ja existam avioes com urgencia
+                 */
                 else {
+
+                    /**
+                     * Percorrer a lista para encontrar a posicao do aviao com urgencia e coloca-lo no fim da fila de urgencia
+                     */
                     segundoAuxiliar = primeiroFila;
                     primeiroAuxiliar->proximoFila = primeiroFila->proximoFila;
                     while (primeiroAuxiliar->proximoFila->numero != primeiroAuxiliar->numero) {
@@ -116,14 +164,18 @@ int main() {
 
             }
             else if (strcmp(primeiroAuxiliar->menssagem, "FIM") == 0) {
+
+                /**
+                 * Printar a situacao da fila no final
+                 */
                 lerArquivo = false;
                 free(primeiroAuxiliar);
                 primeiroAuxiliar = NULL;
-                printf("\n\nSituacao da fila\n\n");
+                fprintf(Saida, "\nSituacao da fila\n\n");
                 primeiroAuxiliar = primeiroFila;
                 while (primeiroAuxiliar != NULL) {
                     primeiroAuxiliar = primeiroAuxiliar->proximoFila;
-                    printf("%04d    %s", primeiroFila->numero, primeiroFila->localPartida);
+                    fprintf(Saida, "%04d    %s", primeiroFila->numero, primeiroFila->localPartida);
                     free(primeiroFila);
                     primeiroFila = primeiroAuxiliar;
                 }
@@ -132,5 +184,6 @@ int main() {
     }
 
     fclose(Entrada);
+    fclose(Saida);
     return 0;
 }
