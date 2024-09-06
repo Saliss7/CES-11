@@ -73,7 +73,7 @@ int main() {
         /**
          * Caso a fila nao estaja vazia
          */
-        if (primeiroFila != NULL) {
+        else {
             primeiroAuxiliar = (noh *) malloc(sizeof(noh));
             fscanf(Entrada, "%s", primeiroAuxiliar->menssagem);
             fscanf(Entrada, "%d ", &(primeiroAuxiliar->numero));
@@ -121,7 +121,7 @@ int main() {
                     else {
 
                         /**
-                         * Percorrer a lista para encontrar a posicao do primeiro aviao aviao com urgencia
+                         * Percorrer a lista para encontrar a posicao do primeiro aviao com urgencia
                          * e coloca-lo no inicio da fila
                          */
                         segundoAuxiliar = primeiroFila;
@@ -145,7 +145,8 @@ int main() {
                 else {
 
                     /**
-                     * Percorrer a lista para encontrar a posicao do aviao com urgencia e coloca-lo no fim da fila de urgencia
+                     * Percorrer a lista para encontrar a posicao do aviao com urgencia e coloca-lo
+                     * no fim da fila de urgencia
                      */
                     segundoAuxiliar = primeiroFila;
                     primeiroAuxiliar->proximoFila = primeiroFila->proximoFila;

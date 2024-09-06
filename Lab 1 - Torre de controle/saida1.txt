@@ -4,13 +4,17 @@ AUTORIZACOES DE POUSO
 =========================================
 FLIGHT  FROM
 
-1234    Amsterdam
 0000    Nenhum avião pousando
 8086    San Francisco
-0055    Paris
 4444    Londres
+0055    Paris
+2552    Tokyo
+1234    Amsterdam
+0000    Nenhum avião pousando
+0000    Nenhum avião pousando
+6161    Hong Kong
+0000    Nenhum avião pousando
 
 Situacao da fila
 
-2552    Tokyo
-6161    Hong Kong
+Fila vazia
