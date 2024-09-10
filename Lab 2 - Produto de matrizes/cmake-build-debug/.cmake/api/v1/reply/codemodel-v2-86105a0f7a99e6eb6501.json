@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.28"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Lab_2___Produto_de_matrizes",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Lab_2___Produto_de_matrizes::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Lab_2___Produto_de_matrizes-Debug-f60fd46a4bf9c0a56aa2.json",
+					"name" : "Lab_2___Produto_de_matrizes",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/matheus/Documents/CES-11/Lab 2 - Produto de matrizes/cmake-build-debug",
+		"source" : "/home/matheus/Documents/CES-11/Lab 2 - Produto de matrizes"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

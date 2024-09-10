@@ -1,0 +1,3 @@
+/home/matheus/Documents/CES-11/Lab 2 - Produto de matrizes/cmake-build-debug/CMakeFiles/Lab_2___Produto_de_matrizes.dir
+/home/matheus/Documents/CES-11/Lab 2 - Produto de matrizes/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/matheus/Documents/CES-11/Lab 2 - Produto de matrizes/cmake-build-debug/CMakeFiles/rebuild_cache.dir
