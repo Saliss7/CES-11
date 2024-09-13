@@ -8,28 +8,49 @@
 #include <stdlib.h>
 #include <string.h>
 
-int minimoMultiplicacoes(int i, int j, int *quantidadeLinhas, int *quantidadeColunas, int *contador) {
+int minimoMultiplicacoes(int i, int j, int *quantidadeLinhas, int *quantidadeColunas, int *contador, int **melhorCorte) {
 
-    int k;
-    int minimo;
+    (*contador)++;
+    int k, minimo, auxiliar;
 
     if (i == j) {
-        (*contador)++;
         return 0;
     } else {
-        minimo = minimoMultiplicacoes(i, i, quantidadeLinhas, quantidadeColunas, contador) +
-                 minimoMultiplicacoes(i + 1, j, quantidadeLinhas, quantidadeColunas, contador) +
-                 quantidadeLinhas[i-1] * quantidadeColunas[i-1] * quantidadeColunas[j-1];
+        minimo = minimoMultiplicacoes(i, i, quantidadeLinhas, quantidadeColunas, contador, melhorCorte) +
+                 minimoMultiplicacoes(i + 1, j, quantidadeLinhas, quantidadeColunas, contador, melhorCorte) +
+                 quantidadeLinhas[i] * quantidadeColunas[i] * quantidadeColunas[j];
+        melhorCorte[i][j] = i;
         for (k = i + 1; k < j; k++) {
-            if (minimo > minimoMultiplicacoes(i, k, quantidadeLinhas, quantidadeColunas, contador) +
-                         minimoMultiplicacoes(k + 1, j, quantidadeLinhas, quantidadeColunas, contador) +
-                         quantidadeLinhas[i] * quantidadeColunas[k] * quantidadeColunas[j]) {
-                minimo = minimoMultiplicacoes(i, k, quantidadeLinhas, quantidadeColunas, contador) +
-                         minimoMultiplicacoes(k + 1, j, quantidadeLinhas, quantidadeColunas, contador) +
-                         quantidadeLinhas[i-1] * quantidadeColunas[k-1] * quantidadeColunas[j-1];
+            auxiliar = minimoMultiplicacoes(i, k, quantidadeLinhas, quantidadeColunas, contador, melhorCorte) +
+                     minimoMultiplicacoes(k + 1, j, quantidadeLinhas, quantidadeColunas, contador, melhorCorte) +
+                     quantidadeLinhas[i] * quantidadeColunas[k] * quantidadeColunas[j];
+            if (minimo > auxiliar) {
+                minimo = auxiliar;
+                melhorCorte[i][j] = k;
             }
         }
         return minimo;
+    }
+}
+
+void melhorCaminho (int i, int j, int **melhorCorte) {
+
+    if (melhorCorte[i][j] == i && j - i == 1)
+        printf ("     %d x  %d\n", i, j);
+    if (j == i)
+        return;
+
+    melhorCaminho(i, melhorCorte[i][j], melhorCorte);
+    melhorCaminho(melhorCorte[i][j] + 1, j, melhorCorte);
+
+    if (melhorCorte[i][j] == i && j - i > 1) {
+        printf ("     %d x  %d- %d\n", i, i+1, j);
+    }
+    else if (melhorCorte[i][j] == j-1 && j - i > 1) {
+        printf ("  %d- %d x  %d\n", i, j - 1, j);
+    }
+    else if (j - i > 1) {
+        printf (" %d- %d x  %d- %d\n", i, melhorCorte[i][j], melhorCorte[i][j] + 1, j);
     }
 }
 
@@ -38,9 +59,10 @@ int main() {
     int quantidadeMatrizes;
     int *quantidadeLinhas;
     int *quantidadeColunas;
+    int **melhorCorte;
     int contador = 0;
     char linha[70];
-    int i = 0;
+    int i;
     FILE *Entrada;
     FILE *Saida;
     Entrada = fopen("entrada2.txt", "r");
@@ -58,8 +80,12 @@ int main() {
      */
     fscanf(Entrada, "%d", &quantidadeMatrizes);
 
-    quantidadeLinhas = (int *) malloc(quantidadeMatrizes*sizeof(int));
-    quantidadeColunas = (int *) malloc(quantidadeMatrizes*sizeof(int));
+    quantidadeLinhas = (int *) malloc((quantidadeMatrizes+1)*sizeof(int));
+    quantidadeColunas = (int *) malloc((quantidadeMatrizes+1)*sizeof(int));
+    melhorCorte = (int **) malloc((quantidadeMatrizes+1)*sizeof(int *));
+
+    for (i = 0; i <= quantidadeMatrizes; i++)
+        melhorCorte[i] = (int *)malloc((quantidadeMatrizes+1) * sizeof(int));
 
     /**
      * Pular mais 3 linhas do arquivo de entrada
@@ -71,10 +97,21 @@ int main() {
     /**
      * Armazenar a a quantidade de linhas e colunas de cada matriz
      */
-    for (i = 0; i < quantidadeMatrizes; i++)
+    for (i = 1; i <= quantidadeMatrizes; i++)
         fscanf(Entrada, "%d %d", &(quantidadeLinhas[i]), &(quantidadeColunas[i]));
 
-    printf("%d", minimoMultiplicacoes(1, quantidadeMatrizes, quantidadeLinhas, quantidadeColunas, &contador));
+    printf("%d\n", minimoMultiplicacoes(1, quantidadeMatrizes, quantidadeLinhas, quantidadeColunas, &contador, melhorCorte));
+    printf("%d", contador);
+
+    printf("\n");
+    for (i = 1; i <= quantidadeMatrizes; i++) {
+        for (int j = 1; j <= quantidadeMatrizes; j++) {
+            printf("%d ", melhorCorte[i][j]);
+        }
+        printf("\n");  // Nova linha após imprimir todos os elementos de uma linha
+    }
+
+    melhorCaminho (1, quantidadeMatrizes, melhorCorte);
 
     fclose(Entrada);
     fclose(Saida);
