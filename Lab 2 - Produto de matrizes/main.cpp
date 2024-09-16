@@ -6,23 +6,30 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-int minimoMultiplicacoes(int i, int j, int *quantidadeLinhas, int *quantidadeColunas, int *contador, int **melhorCorte) {
+int MinimoMultiplicacoes(int i, int j, int *quantidadeLinhas, int *quantidadeColunas, int *contador, int **melhorCorte) {
 
     (*contador)++;
     int k, minimo, auxiliar;
 
+    /**
+     * Retornar 0 caso so tenha uma matriz
+     */
     if (i == j) {
         return 0;
-    } else {
-        minimo = minimoMultiplicacoes(i, i, quantidadeLinhas, quantidadeColunas, contador, melhorCorte) +
-                 minimoMultiplicacoes(i + 1, j, quantidadeLinhas, quantidadeColunas, contador, melhorCorte) +
+    }
+
+    /**
+     * Encontrar o minimo e o melhor corte entre todos os cortes possiveis
+     */
+    else {
+        minimo = MinimoMultiplicacoes(i, i, quantidadeLinhas, quantidadeColunas, contador, melhorCorte) +
+                 MinimoMultiplicacoes(i + 1, j, quantidadeLinhas, quantidadeColunas, contador, melhorCorte) +
                  quantidadeLinhas[i] * quantidadeColunas[i] * quantidadeColunas[j];
         melhorCorte[i][j] = i;
         for (k = i + 1; k < j; k++) {
-            auxiliar = minimoMultiplicacoes(i, k, quantidadeLinhas, quantidadeColunas, contador, melhorCorte) +
-                     minimoMultiplicacoes(k + 1, j, quantidadeLinhas, quantidadeColunas, contador, melhorCorte) +
+            auxiliar = MinimoMultiplicacoes(i, k, quantidadeLinhas, quantidadeColunas, contador, melhorCorte) +
+                     MinimoMultiplicacoes(k + 1, j, quantidadeLinhas, quantidadeColunas, contador, melhorCorte) +
                      quantidadeLinhas[i] * quantidadeColunas[k] * quantidadeColunas[j];
             if (minimo > auxiliar) {
                 minimo = auxiliar;
@@ -33,24 +40,30 @@ int minimoMultiplicacoes(int i, int j, int *quantidadeLinhas, int *quantidadeCol
     }
 }
 
-void melhorCaminho (int i, int j, int **melhorCorte) {
+void MelhorCaminho (int i, int j, int **melhorCorte, FILE *Saida) {
 
-    if (melhorCorte[i][j] == i && j - i == 1)
-        printf ("     %d x  %d\n", i, j);
-    if (j == i)
+    if (i == j)
         return;
+    if (melhorCorte[i][j] == i && j - i == 1)
+        fprintf (Saida, "   %2d x %2d\n", i, j);
 
-    melhorCaminho(i, melhorCorte[i][j], melhorCorte);
-    melhorCaminho(melhorCorte[i][j] + 1, j, melhorCorte);
+    /**
+     * Chamada da recursao
+     */
+    MelhorCaminho(i, melhorCorte[i][j], melhorCorte, Saida);
+    MelhorCaminho(melhorCorte[i][j] + 1, j, melhorCorte, Saida);
 
-    if (melhorCorte[i][j] == i && j - i > 1) {
-        printf ("     %d x  %d- %d\n", i, i+1, j);
-    }
-    else if (melhorCorte[i][j] == j-1 && j - i > 1) {
-        printf ("  %d- %d x  %d\n", i, j - 1, j);
-    }
-    else if (j - i > 1) {
-        printf (" %d- %d x  %d- %d\n", i, melhorCorte[i][j], melhorCorte[i][j] + 1, j);
+    /**
+     * Cosos intermediarios
+     */
+    if (j - i > 1) {
+        if (melhorCorte[i][j] == i) {
+            fprintf(Saida, "   %2d x %2d-%2d\n", i, i + 1, j);
+        } else if (melhorCorte[i][j] == j - 1) {
+            fprintf(Saida, "%2d-%2d x %2d\n", i, j - 1, j);
+        } else {
+            fprintf(Saida, "%2d-%2d x %2d-%2d\n", i, melhorCorte[i][j], melhorCorte[i][j] + 1, j);
+        }
     }
 }
 
@@ -100,18 +113,20 @@ int main() {
     for (i = 1; i <= quantidadeMatrizes; i++)
         fscanf(Entrada, "%d %d", &(quantidadeLinhas[i]), &(quantidadeColunas[i]));
 
-    printf("%d\n", minimoMultiplicacoes(1, quantidadeMatrizes, quantidadeLinhas, quantidadeColunas, &contador, melhorCorte));
-    printf("%d", contador);
+    fprintf(Saida, "Exemplo de arquivo de saida\nExercicio 2\nProduto de Matrizes\n\n");
 
-    printf("\n");
-    for (i = 1; i <= quantidadeMatrizes; i++) {
-        for (int j = 1; j <= quantidadeMatrizes; j++) {
-            printf("%d ", melhorCorte[i][j]);
-        }
-        printf("\n");  // Nova linha após imprimir todos os elementos de uma linha
-    }
+    /**
+     * Printar o minimo de multiplicacoes e quantas vezes a funcao e chamada
+     */
+    fprintf(Saida, "Total de multiplicacoes escalares = %d\n\n", MinimoMultiplicacoes(1, quantidadeMatrizes, quantidadeLinhas, quantidadeColunas, &contador, melhorCorte));
+    fprintf(Saida,"Chamadas aa funcao: %d\n\n", contador);
 
-    melhorCaminho (1, quantidadeMatrizes, melhorCorte);
+    fprintf(Saida, "Melhor ordem para realizar o produto:\n");
+
+    /**
+     * Printar o melhor caminho
+     */
+    MelhorCaminho (1, quantidadeMatrizes, melhorCorte, Saida);
 
     fclose(Entrada);
     fclose(Saida);
