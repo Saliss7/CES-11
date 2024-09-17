@@ -31,7 +31,7 @@ int MinimoMultiplicacoes(int i, int j, int *quantidadeLinhas, int *quantidadeCol
             auxiliar = MinimoMultiplicacoes(i, k, quantidadeLinhas, quantidadeColunas, contador, melhorCorte) +
                      MinimoMultiplicacoes(k + 1, j, quantidadeLinhas, quantidadeColunas, contador, melhorCorte) +
                      quantidadeLinhas[i] * quantidadeColunas[k] * quantidadeColunas[j];
-            if (minimo > auxiliar) {
+            if (minimo >= auxiliar) {
                 minimo = auxiliar;
                 melhorCorte[i][j] = k;
             }
@@ -42,6 +42,9 @@ int MinimoMultiplicacoes(int i, int j, int *quantidadeLinhas, int *quantidadeCol
 
 void MelhorCaminho (int i, int j, int **melhorCorte, FILE *Saida) {
 
+    /**
+     * Coso sejam matrizes adjacentes
+     */
     if (i == j)
         return;
     if (melhorCorte[i][j] == i && j - i == 1)
