@@ -28,7 +28,7 @@ int main() {
     FILE *Entrada;
     FILE *Saida;
     Entrada = fopen("entrada1.txt", "r");
-    Saida = fopen("saida1.txt", "w");
+    Saida = fopen("Lab1_Matheus_Felipe_Ramos_Borges.tx", "w");
 
     /**
      * Pular as 8 primeiras linhas do arquivo de entrada

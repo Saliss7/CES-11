@@ -82,7 +82,7 @@ int main() {
     FILE *Entrada;
     FILE *Saida;
     Entrada = fopen("entrada2.txt", "r");
-    Saida = fopen("saida2.txt", "w");
+    Saida = fopen("Lab2_Matheus_Felipe_Ramos_Borges.txt", "w");
 
     /**
      * Pular as 5 primeiras linhas do arquivo de entrada
