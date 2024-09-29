@@ -23,6 +23,8 @@
       <change beforePath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_bubble.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_bubble.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_merge.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_merge.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_quick.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_quick.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QuickSort.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QuickSort.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entrada3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/entrada3.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main" beforeDir="false" afterPath="$PROJECT_DIR$/main" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
@@ -54,6 +56,9 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;C/C++ File.BuscaBinaria.cpp.executor&quot;: &quot;Run&quot;,
+    &quot;C/C++ File.GeradorStrings.cpp.executor&quot;: &quot;Run&quot;,
+    &quot;C/C++ File.MergeSort.cpp.executor&quot;: &quot;Run&quot;,
+    &quot;C/C++ File.QuickSort.cpp.executor&quot;: &quot;Run&quot;,
     &quot;C/C++ File.main.cpp.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
@@ -61,24 +66,43 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/matheus/Documents/CES-11/Lab 3 - Ordenação/QuickSort - código.cpp&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/matheus/Documents/CES-11/Lab 3 - Ordenação/BubbleSort.cpp&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="C/C++ File.main.cpp">
-    <configuration name="BuscaBinaria.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Lab 3 - Ordenação" TARGET_NAME="BuscaBinaria.cpp" CONFIG_NAME="BuscaBinaria.cpp">
-      <option name="sourceFile" value="$PROJECT_DIR$/BuscaBinaria.cpp" />
+  <component name="RunManager" selected="C/C++ File.QuickSort.cpp">
+    <configuration name="BubbleSort.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Lab 3 - Ordenação" TARGET_NAME="BubbleSort.cpp" CONFIG_NAME="BubbleSort.cpp">
+      <option name="sourceFile" value="$PROJECT_DIR$/BubbleSort.cpp" />
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="QuickSort - código.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Lab 3 - Ordenação" TARGET_NAME="QuickSort - código.cpp" CONFIG_NAME="QuickSort - código.cpp">
-      <option name="sourceFile" value="$PROJECT_DIR$/QuickSort - código.cpp" />
+    <configuration name="GeradorStrings.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Lab 3 - Ordenação" TARGET_NAME="GeradorStrings.cpp" CONFIG_NAME="GeradorStrings.cpp">
+      <option name="sourceFile" value="$PROJECT_DIR$/GeradorStrings.cpp" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MergeSort.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Lab 3 - Ordenação" TARGET_NAME="MergeSort.cpp" CONFIG_NAME="MergeSort.cpp">
+      <option name="sourceFile" value="$PROJECT_DIR$/MergeSort.cpp" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QuickSort.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Lab 3 - Ordenação" TARGET_NAME="QuickSort.cpp" CONFIG_NAME="QuickSort.cpp">
+      <option name="sourceFile" value="$PROJECT_DIR$/QuickSort.cpp" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="main.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Lab 3 - Ordenação" TARGET_NAME="main.cpp" CONFIG_NAME="main.cpp">
+      <option name="sourceFile" value="$PROJECT_DIR$/main.cpp" />
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
       </method>
@@ -90,9 +114,11 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="C/C++ File.BubbleSort.cpp" />
+      <item itemvalue="C/C++ File.GeradorStrings.cpp" />
+      <item itemvalue="C/C++ File.MergeSort.cpp" />
+      <item itemvalue="C/C++ File.QuickSort.cpp" />
       <item itemvalue="C/C++ File.main.cpp" />
-      <item itemvalue="C/C++ File.BuscaBinaria.cpp" />
-      <item itemvalue="C/C++ File.QuickSort - código.cpp" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -116,7 +142,14 @@
       <workItem from="1727011649849" duration="14172000" />
       <workItem from="1727039997128" duration="449000" />
       <workItem from="1727057428454" duration="768000" />
-      <workItem from="1727557443505" duration="455000" />
+      <workItem from="1727557443505" duration="1886000" />
+      <workItem from="1727559459719" duration="2071000" />
+      <workItem from="1727574518216" duration="289000" />
+      <workItem from="1727574814585" duration="546000" />
+      <workItem from="1727575369547" duration="226000" />
+      <workItem from="1727575666121" duration="99000" />
+      <workItem from="1727576163608" duration="379000" />
+      <workItem from="1727576591497" duration="31000" />
     </task>
     <servers />
   </component>

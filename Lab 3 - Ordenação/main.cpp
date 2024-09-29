@@ -90,7 +90,6 @@ void Merge (tipoelemento *v, int inicio, int fim) {
     for (i = inicio; i <= fim ; i++){
         strcpy(v[i], temporario[i]);
     }
-    free(temporario);
 }
 
 void MergeSort (tipoelemento *v, int inicio, int fim) {
@@ -217,7 +216,7 @@ int main() {
 
     fprintf(SaidaBubble, "Algoritmo: Bubble-Sort\n\nTamanho da entrada: %d\n", quantidadeStrings);
     fprintf(SaidaBubble, "Comparações feitas: %d\n", contador);
-    fprintf(SaidaBubble, "Tempo de execução : %.10f segundos\n\n", delta_t);
+    fprintf(SaidaBubble, "Tempo de execução : %.3f segundos\n\n", delta_t);
     fprintf(SaidaBubble, "--------------------------------------------------\n");
 
     for (i = 0; i < quantidadeStrings; i++) {
@@ -238,7 +237,7 @@ int main() {
 
     fprintf(SaidaMerge, "Algoritmo: Merge-Sort\n\nTamanho da entrada: %d\n", quantidadeStrings);
     fprintf(SaidaMerge, "Comparações feitas: %d\n", contador);
-    fprintf(SaidaMerge, "Tempo de execução : %.10f segundos\n\n", delta_t);
+    fprintf(SaidaMerge, "Tempo de execução : %.3f segundos\n\n", delta_t);
     fprintf(SaidaMerge, "--------------------------------------------------\n");
 
     for (i = 0; i < quantidadeStrings; i++) {
@@ -259,7 +258,7 @@ int main() {
 
     fprintf(SaidaQuick, "Algoritmo: Quick-Sort\n\nTamanho da entrada: %d\n", quantidadeStrings);
     fprintf(SaidaQuick, "Comparações feitas: %d\n", contador);
-    fprintf(SaidaQuick, "Tempo de execução : %.10f segundos\n\n", delta_t);
+    fprintf(SaidaQuick, "Tempo de execução : %.3f segundos\n\n", delta_t);
     fprintf(SaidaQuick, "--------------------------------------------------\n");
 
     for (i = 0; i < quantidadeStrings; i++) {
