@@ -27,9 +27,9 @@ int compara (const char * a, const char * b) {
 void Merge (tipoelemento *v, int inicio, int fim) {
     static tipoelemento *temporario = (tipoelemento *) malloc(quantidadeStrings*sizeof(tipoelemento)); // temporario
     int media,
-            i,     // percorre T
-    j,     // percorre lado esquerdo de v
-    k;     // percorre lado direito  de v
+        i,     // percorre T
+        j,     // percorre lado esquerdo de v
+        k;     // percorre lado direito  de v
     media = (inicio + fim)/2;
     j = inicio;
     k = media + 1;
@@ -51,7 +51,7 @@ void Merge (tipoelemento *v, int inicio, int fim) {
     }
 
     /**
-     * se sobrou algo `a esquerda, copiar para temporario
+     * se sobrou algo a esquerda, copiar para temporario
      */
     while (j <= media) {
         strcpy(temporario[i], v[j]);
@@ -60,7 +60,7 @@ void Merge (tipoelemento *v, int inicio, int fim) {
     }
 
     /**
-     * se sobrou algo `a direita, copiar para temporario
+     * se sobrou algo a direita, copiar para temporario
      */
     while (k <= fim) {
         strcpy(temporario[i], v[k]);

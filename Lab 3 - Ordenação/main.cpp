@@ -41,7 +41,7 @@ void BubbleSort (tipoelemento *v) {
  * Fazer intercalacao (merge) e obter V ordenado.
  */
 void Merge (tipoelemento *v, int inicio, int fim) {
-    tipoelemento *temporario = (tipoelemento *) malloc(quantidadeStrings*sizeof(tipoelemento)); // temporario
+    static tipoelemento *temporario = (tipoelemento *) malloc(quantidadeStrings*sizeof(tipoelemento)); // temporario
     int media,
         i,     // percorre T
         j,     // percorre lado esquerdo de v

@@ -19,11 +19,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="484abe83-0e94-477b-a9a6-2d4f92b5128e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BubbleSort" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_bubble.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_bubble.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_merge.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_merge.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_quick.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_quick.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QuickSort.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QuickSort.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MergeSort.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MergeSort.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entrada3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/entrada3.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main" beforeDir="false" afterPath="$PROJECT_DIR$/main" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
@@ -55,6 +56,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;C/C++ File.BubbleSort.cpp.executor&quot;: &quot;Run&quot;,
     &quot;C/C++ File.BuscaBinaria.cpp.executor&quot;: &quot;Run&quot;,
     &quot;C/C++ File.GeradorStrings.cpp.executor&quot;: &quot;Run&quot;,
     &quot;C/C++ File.MergeSort.cpp.executor&quot;: &quot;Run&quot;,
@@ -76,7 +78,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="C/C++ File.QuickSort.cpp">
+  <component name="RunManager" selected="C/C++ File.main.cpp">
     <configuration name="BubbleSort.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Lab 3 - Ordenação" TARGET_NAME="BubbleSort.cpp" CONFIG_NAME="BubbleSort.cpp">
       <option name="sourceFile" value="$PROJECT_DIR$/BubbleSort.cpp" />
       <method v="2">
@@ -150,6 +152,15 @@
       <workItem from="1727575666121" duration="99000" />
       <workItem from="1727576163608" duration="379000" />
       <workItem from="1727576591497" duration="31000" />
+      <workItem from="1727576721238" duration="1369000" />
+      <workItem from="1727622130810" duration="731000" />
+      <workItem from="1727622986328" duration="51000" />
+      <workItem from="1727632212710" duration="2232000" />
+      <workItem from="1727706971354" duration="1707000" />
+      <workItem from="1727811360742" duration="2174000" />
+      <workItem from="1727813975725" duration="470000" />
+      <workItem from="1727814550784" duration="910000" />
+      <workItem from="1727815544089" duration="1030000" />
     </task>
     <servers />
   </component>
