@@ -19,14 +19,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="484abe83-0e94-477b-a9a6-2d4f92b5128e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BubbleSort" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_bubble.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_bubble.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_merge.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_merge.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_quick.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Lab3_Matheus_Felipe_Ramos_Borges_quick.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MergeSort.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MergeSort.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entrada3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/entrada3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main" beforeDir="false" afterPath="$PROJECT_DIR$/main" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,31 +52,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;C/C++ File.BubbleSort.cpp.executor&quot;: &quot;Run&quot;,
-    &quot;C/C++ File.BuscaBinaria.cpp.executor&quot;: &quot;Run&quot;,
-    &quot;C/C++ File.GeradorStrings.cpp.executor&quot;: &quot;Run&quot;,
-    &quot;C/C++ File.MergeSort.cpp.executor&quot;: &quot;Run&quot;,
-    &quot;C/C++ File.QuickSort.cpp.executor&quot;: &quot;Run&quot;,
-    &quot;C/C++ File.main.cpp.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/matheus/Documents/CES-11/Lab 3 - Ordenação/BubbleSort.cpp&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "C/C++ File.BubbleSort.cpp.executor": "Run",
+    "C/C++ File.BuscaBinaria.cpp.executor": "Run",
+    "C/C++ File.GeradorStrings.cpp.executor": "Run",
+    "C/C++ File.Lab3_seu_Luiz_Carlos_Machado_Ferreira.CPP.executor": "Run",
+    "C/C++ File.MergeSort.cpp.executor": "Run",
+    "C/C++ File.QuickSort.cpp.executor": "Run",
+    "C/C++ File.main.cpp.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/matheus/Documents/CES-11/Lab 3 - Ordenação/Lab3_seu_Luiz_Carlos_Machado_Ferreira.CPP",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "structure.view.defaults.are.configured": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="C/C++ File.main.cpp">
+}]]></component>
+  <component name="RunManager" selected="C/C++ File.Lab3_seu_Luiz_Carlos_Machado_Ferreira.CPP">
     <configuration name="BubbleSort.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Lab 3 - Ordenação" TARGET_NAME="BubbleSort.cpp" CONFIG_NAME="BubbleSort.cpp">
       <option name="sourceFile" value="$PROJECT_DIR$/BubbleSort.cpp" />
       <method v="2">
@@ -87,6 +87,12 @@
     </configuration>
     <configuration name="GeradorStrings.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Lab 3 - Ordenação" TARGET_NAME="GeradorStrings.cpp" CONFIG_NAME="GeradorStrings.cpp">
       <option name="sourceFile" value="$PROJECT_DIR$/GeradorStrings.cpp" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Lab3_seu_Luiz_Carlos_Machado_Ferreira.CPP" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Lab 3 - Ordenação" TARGET_NAME="Lab3_seu_Luiz_Carlos_Machado_Ferreira.CPP" CONFIG_NAME="Lab3_seu_Luiz_Carlos_Machado_Ferreira.CPP">
+      <option name="sourceFile" value="$PROJECT_DIR$/Lab3_seu_Luiz_Carlos_Machado_Ferreira.CPP" />
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
       </method>
@@ -118,6 +124,7 @@
     <list>
       <item itemvalue="C/C++ File.BubbleSort.cpp" />
       <item itemvalue="C/C++ File.GeradorStrings.cpp" />
+      <item itemvalue="C/C++ File.Lab3_seu_Luiz_Carlos_Machado_Ferreira.CPP" />
       <item itemvalue="C/C++ File.MergeSort.cpp" />
       <item itemvalue="C/C++ File.QuickSort.cpp" />
       <item itemvalue="C/C++ File.main.cpp" />
@@ -160,7 +167,12 @@
       <workItem from="1727811360742" duration="2174000" />
       <workItem from="1727813975725" duration="470000" />
       <workItem from="1727814550784" duration="910000" />
-      <workItem from="1727815544089" duration="1030000" />
+      <workItem from="1727815544089" duration="1097000" />
+      <workItem from="1727910453801" duration="23000" />
+      <workItem from="1727982789560" duration="3255000" />
+      <workItem from="1727990810635" duration="1241000" />
+      <workItem from="1728006276040" duration="521000" />
+      <workItem from="1728006814638" duration="3334000" />
     </task>
     <servers />
   </component>

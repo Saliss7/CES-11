@@ -36,8 +36,8 @@ void BubbleSort (tipoelemento *v) {
 
 /**
  * Dado um vetor V e dadas duas posicoes ini e fim.
- * A metade da esquerda desse trecho ja´ esta´ ordenada
- * e a metade da direita  desse trecho ja´ esta´ ordenada.
+ * A metade da esquerda desse trecho ja esta´ ordenada
+ * e a metade da direita  desse trecho ja esta´ ordenada.
  * Fazer intercalacao (merge) e obter V ordenado.
  */
 void Merge (tipoelemento *v, int inicio, int fim) {
@@ -67,7 +67,7 @@ void Merge (tipoelemento *v, int inicio, int fim) {
     }
 
     /**
-     * se sobrou algo `a esquerda, copiar para temporario
+     * se sobrou algo a esquerda, copiar para temporario
      */
     while (j <= media) {
         strcpy(temporario[i], v[j]);
@@ -76,7 +76,7 @@ void Merge (tipoelemento *v, int inicio, int fim) {
     }
 
     /**
-     * se sobrou algo `a direita, copiar para temporario
+     * se sobrou algo a direita, copiar para temporario
      */
     while (k <= fim) {
         strcpy(temporario[i], v[k]);
