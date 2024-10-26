@@ -161,7 +161,7 @@ int main() {
                     "\n--------------------------------------------------\nFICA PARA O DIA SEGUINTE\n--------------------------------------------------\n");
 
             if (FilaVazia(&agenda)) {
-                printf("Agenda vazia! Nao restam tarefas para o dia seguinte.");
+                fprintf(Saida, "Agenda vazia! Nao restam tarefas para o dia seguinte.");
             } else {
                 while (!FilaVazia(&agenda)) {
                     fprintf(Saida, "%2d       %s", ConsultarMax(&agenda).importancia, ConsultarMax(&agenda).descricao);
