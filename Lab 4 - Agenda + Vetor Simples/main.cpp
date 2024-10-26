@@ -8,23 +8,33 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * Struct que guarda as informacoes sobre as tarefas
+ */
 struct Tarefa {
     char descricao[40];
     int importancia;
 };
 
+/**
+ * Struct que guarda as informacoes sobre a agenda
+ */
 struct Agenda {
     int maximoElementos;
     int quantidade;
     Tarefa *vetor;
 };
 
+
+/**
+ * Funcao para inserir uma nova tarefa na agenda
+ */
 void Inserir(Tarefa tarefa, Agenda *agenda) {
     int posicao;
     int esquerda, media, direita;
     esquerda = 0;
-    direita = agenda->maximoElementos;
-    while (esquerda < direita) {
+    direita = agenda->quantidade + 1;
+    while (esquerda < direita - 1) {
         media = (esquerda + direita) / 2;
         if (agenda->vetor[media].importancia < tarefa.importancia) {
             esquerda = media;
@@ -41,27 +51,39 @@ void Inserir(Tarefa tarefa, Agenda *agenda) {
     agenda->quantidade++;
 }
 
+/**
+ * Remover o maior elemento sem consultar
+ */
 void RemoverMax(Agenda *agenda) {
-    for (int i = 1; i < agenda->quantidade; i++) {
-        agenda->vetor[i] = agenda->vetor[i + 1];
-    }
     agenda->quantidade--;
 }
 
+/**
+ * Consultar o maior elemento sem remover
+ */
 Tarefa ConsultarMax(Agenda *agenda) {
-    return agenda->vetor[1];
+    return agenda->vetor[agenda->quantidade];
 }
 
+/**
+ * inicializar a agenda
+ */
 void Inicializar(Agenda *agenda, int maximoElementos) {
     agenda->maximoElementos = maximoElementos;
     agenda->quantidade = 0;
     agenda->vetor = (Tarefa *) malloc((maximoElementos + 1) * sizeof(Tarefa));
 }
 
+/**
+ * Finalizar a agenda
+ */
 void Finalizar(Agenda *agenda) {
     free(agenda->vetor);
 }
 
+/**
+ * Conferir se a fila esta vazia
+ */
 bool FilaVazia(Agenda *agenda) {
     if (agenda->quantidade == 0) {
         return true;
@@ -70,6 +92,9 @@ bool FilaVazia(Agenda *agenda) {
     }
 }
 
+/**
+ * Conferir se a fila esta cheia
+ */
 bool FilaCheia(Agenda *agenda) {
     if (agenda->quantidade == agenda->maximoElementos) {
         return true;
@@ -85,8 +110,8 @@ int main() {
     char linha[70];
     int maximoElementos;
     int i;
-    Agenda agenda;
-    Tarefa tarefa;
+    struct Agenda agenda;
+    struct Tarefa tarefa;
     FILE *Entrada;
     FILE *Saida;
     Entrada = fopen("entrada4.txt", "r");
@@ -99,6 +124,9 @@ int main() {
         fgets(linha, sizeof(linha), Entrada);
     }
 
+    /**
+     * Ler a quantidade maxima de elementos
+     */
     fscanf(Entrada, "%d", &maximoElementos);
 
     /**
@@ -111,38 +139,65 @@ int main() {
     fprintf(Saida,
             "Agenda Eletronica - Exemplo de arquivo de saida.\nPode colocar qualquer texto no cabecalho.\nO cabecalho deve ter exatamente 5 linhas.\nNeste caso, a quinta linha estah em branco  :-)\n\n--------------------------------------------------\nRESPOSTAS DAS CONSULTAS\n--------------------------------------------------\n");
 
+    /**
+     * Inicializar a fila
+     */
     Inicializar(&agenda, maximoElementos);
 
     while (lerArquivo) {
 
+        /**
+         * Ler o tipo da tarefa Fim, Proxima ou Nova
+         */
         fscanf(Entrada, "%s", tipoTarefa);
+
         if (strcmp(tipoTarefa, "FIM") == 0) {
             lerArquivo = false;
+
+            /**
+             * Printar o fim da fila
+             */
             fprintf(Saida,
                     "\n--------------------------------------------------\nFICA PARA O DIA SEGUINTE\n--------------------------------------------------\n");
-            while (!FilaVazia(&agenda)) {
-                fprintf(Saida, "%2d       %s", ConsultarMax(&agenda).importancia, ConsultarMax(&agenda).descricao);
-                RemoverMax(&agenda);
+
+            if (FilaVazia(&agenda)) {
+                printf("Agenda vazia! Nao restam tarefas para o dia seguinte.");
+            } else {
+                while (!FilaVazia(&agenda)) {
+                    fprintf(Saida, "%2d       %s", ConsultarMax(&agenda).importancia, ConsultarMax(&agenda).descricao);
+                    RemoverMax(&agenda);
+                }
             }
         } else if (strcmp(tipoTarefa, "PROXIMA") == 0) {
+
+            /**
+             * Printar a tarefa de maxima priopridade e remove-la
+             */
             if (FilaVazia(&agenda)) {
-                fprintf(Saida, "AVISO    Nao ha tarefas na agenda  :-)");
+                fprintf(Saida, "AVISO    Nao ha tarefas na agenda  :-)\n");
             } else {
                 fprintf(Saida, "%2d       %s", ConsultarMax(&agenda).importancia, ConsultarMax(&agenda).descricao);
                 RemoverMax(&agenda);
             }
         } else if (strcmp(tipoTarefa, "NOVA") == 0) {
+
+            /**
+             * Adicionar nova tarefa na fila
+             */
             fscanf(Entrada, "%d ", &(tarefa.importancia));
             fgets(tarefa.descricao, sizeof(tarefa.descricao), Entrada);
 
             if (FilaCheia(&agenda)) {
-                fprintf(Saida, "ERRO     Agenda cheia. Impossivel inserir.");
+                fprintf(Saida, "ERRO     Agenda cheia. Impossivel inserir.\n");
             } else {
                 Inserir(tarefa, &agenda);
             }
         }
     }
 
+    /**
+     * Finalizar a agenda
+     */
     Finalizar(&agenda);
 
     fclose(Entrada);
