@@ -20,11 +20,12 @@ struct TipoAgenda
 {
     TipoTarefa * vet;  // o vetor
     int quant,         // quantidade de elementos
-    MAX;           // quantidade máxima possível de elementos (será lida do arquivo de entrada)
+         MAX;           // quantidade máxima possível de elementos (será lida do arquivo de entrada)
 };
 /*--------------------------------------------------*/
 void Inicializar (TipoAgenda * Agd, int numero_maximo)
 {
+    // Inicializar a Fila
     Agd->quant = 0;
     Agd->MAX = numero_maximo;
     Agd->vet = (TipoTarefa *) malloc((numero_maximo + 1)*sizeof(TipoTarefa));
@@ -32,11 +33,13 @@ void Inicializar (TipoAgenda * Agd, int numero_maximo)
 /*--------------------------------------------------*/
 void Finalizar (TipoAgenda * Agd)
 {
+    // Finalizar o ponteiro
     free(Agd->vet);
 }
 /*--------------------------------------------------*/
 bool FilaVazia (TipoAgenda Agd)
 {
+    // Se a fila esta vazia retornar true, se nao retornar false
     if (Agd.quant == 0)
     {
         return true;
@@ -48,6 +51,7 @@ bool FilaVazia (TipoAgenda Agd)
 /*--------------------------------------------------*/
 bool FilaCheia (TipoAgenda Agd)
 {
+    // Se a fila esta cheia retornar true, se nao retornar false
     if (Agd.quant == Agd.MAX)
     {
         return true;
@@ -64,6 +68,7 @@ void Inserir (TipoAgenda * Agd, TipoTarefa Tar)
     Agd->quant++;
     i = Agd->quant;
     Agd->vet[Agd->quant] = Tar;
+    // Condicao para nao ser a raiz e ser maior que o pai para trocar
     while (i > 1 && Agd->vet[i].prioridade > Agd->vet[i/2].prioridade)
     {
         aux = Agd->vet[i];
@@ -80,19 +85,13 @@ void RemoverMax (TipoAgenda * Agd)
     TipoTarefa aux;
     Agd->vet[1] = Agd->vet[Agd->quant];
     Agd->quant--;
-    /**
-     * Condicao para ter filho esquerdo e ter acontecido alguma troca na heap
-     */
+    // Condicao para ter filho esquerdo e ter acontecido alguma troca na heap
     while (i <= Agd->quant/2 && trocou)
     {
-        /**
-         * Condicao para ter o filho direito
-         */
+        // Condicao para ter o filho direito
         if (2*i + 1 <= Agd->quant)
         {
-            /**
-             * Caso seja menor que os dois conferir o maior entre os filhos e trocar. Se for maior que apenas um, trocar com ele
-             */
+            // Caso seja menor que os dois conferir o maior entre os filhos e trocar. Se for maior que apenas um, trocar com ele
             if (Agd->vet[i].prioridade < Agd->vet[2*i].prioridade && Agd->vet[i].prioridade < Agd->vet[2*i + 1].prioridade)
             {
                 if (Agd->vet[2*i].prioridade > Agd->vet[2*i + 1].prioridade) {
@@ -107,6 +106,7 @@ void RemoverMax (TipoAgenda * Agd)
                     Agd->vet[2*i + 1] = aux;
                     i = 2*i + 1;
                 }
+                // Caso seja menor que apenas um
             } else if (Agd->vet[i].prioridade < Agd->vet[2*i].prioridade)
             {
                 aux = Agd->vet[i];
@@ -119,12 +119,15 @@ void RemoverMax (TipoAgenda * Agd)
                 Agd->vet[i] = Agd->vet[2*i + 1];
                 Agd->vet[2*i + 1] = aux;
                 i = 2*i + 1;
+                // Caso nao houve trocas acabar o loop
             } else
             {
                 trocou = false;
             }
+            // Caso so tenha filho esquerdo
         } else
         {
+            // se for menor trocar se nao acabar o loop
             if (Agd->vet[i].prioridade < Agd->vet[2*i].prioridade) {
                 aux = Agd->vet[i];
                 Agd->vet[i] = Agd->vet[2 * i];
@@ -140,6 +143,7 @@ void RemoverMax (TipoAgenda * Agd)
 /*--------------------------------------------------*/
 TipoTarefa ConsultarMax (TipoAgenda Agd)
 {
+    // Retornar o maior valor (primeiro elemento do vetor)
     return Agd.vet[1];
 }
 /*--------------------------------------------------*/
