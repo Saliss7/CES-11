@@ -1,6 +1,6 @@
 /* Matheus Felipe Ramos Borges             */
 /* Turma 4                                 */
-/* Exercício 4: Agenda + Vetor Simples     */
+/* Exercício 5: Agenda + heap              */
 /*                                         */
 /* Programa compilado com CLion 2024.2.0.1 */
 
