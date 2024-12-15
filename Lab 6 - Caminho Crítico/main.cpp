@@ -120,7 +120,7 @@ void GrafoCiclicoDFS (Grafo *grafo, int i, bool *grafoCiclico, Pilha *pilha, cha
     Desempilhar(pilha);
 }
 
-void travessiaGrafoCiclicoDFS (Grafo *grafo, bool *grafoCiclico, Pilha *pilha, char *inicioCiclo) {
+void TravessiaGrafoCiclicoDFS (Grafo *grafo, bool *grafoCiclico, Pilha *pilha, char *inicioCiclo) {
     int i;
 
     /**
@@ -139,6 +139,44 @@ void travessiaGrafoCiclicoDFS (Grafo *grafo, bool *grafoCiclico, Pilha *pilha, c
     for (i = 1; i < 53; i++) {
         if (grafo->listaTarefas[i].inicializado && !grafo->listaTarefas[i].descoberto) {
             GrafoCiclicoDFS(grafo, i, grafoCiclico, pilha, inicioCiclo);
+        }
+    }
+}
+
+void OrdemTopologicaDFS (Grafo *grafo, int i, Pilha *pilha) {
+    int j;
+
+    grafo->listaTarefas[i].descoberto = true;
+
+    for (j = 1; j < 53; j++) {
+        if (grafo->matrizAdjacencias[i][j] == 1 && grafo->listaTarefas[j].inicializado && !grafo->listaTarefas[j].descoberto) {
+            OrdemTopologicaDFS(grafo, j, pilha);
+        }
+    }
+
+    grafo->listaTarefas[i].finalizado = true;
+    Empilhar(pilha, grafo->listaTarefas[i]);
+}
+
+void TravessiaOrdemTopologicaDFS (Grafo *grafo, Pilha *pilha){
+    int i;
+
+    /**
+     * Inicializando todos false
+     */
+    for (i = 1; i < 53; i++){
+        if (grafo->listaTarefas[i].inicializado) {
+            grafo->listaTarefas[i].descoberto = false;
+            grafo->listaTarefas[i].finalizado = false;
+        }
+    }
+
+    /**
+     * Enquanto ha nos nao descobertos chamar a funcao OrdemTopologicaDFS
+     */
+    for (i = 1; i < 53; i++) {
+        if (grafo->listaTarefas[i].inicializado && !grafo->listaTarefas[i].descoberto) {
+            OrdemTopologicaDFS(grafo, i, pilha);
         }
     }
 }
@@ -209,7 +247,11 @@ int main() {
         }
         printf("%c ", inicioCiclo);
     } else {
-        printf("Erro");
+        TravessiaOrdemTopologicaDFS(&grafo, &pilha);
+        while (!PilhaVazia(pilha)) {
+            printf("%c ", TopoPilha(pilha).tarefa);
+            Desempilhar(&pilha);
+        }
     }
 
     fclose(Entrada);
