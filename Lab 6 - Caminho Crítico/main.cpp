@@ -20,7 +20,6 @@ struct noh{
 struct Grafo{
     noh listaTarefas[53];            //Nao utilizarei a posicao 0
     int matrizAdjacencias[53][53];   //Nao utilizarei a posicao 0
-    bool existe[53];                 //Existencia do noh
 };
 
 /**
@@ -36,7 +35,7 @@ struct Pilha{
  * Inicializar a pilha
  * @param pilha
  */
-void inicializarPilha(Pilha *pilha) {
+void InicializarPilha(Pilha *pilha) {
     pilha->MAX = 52;
     pilha->topo = 0;
     pilha->elementos = (noh *) malloc((pilha->MAX + 1) * sizeof(noh));
@@ -47,8 +46,8 @@ void inicializarPilha(Pilha *pilha) {
  * @param pilha
  * @return true se esta vazia e false se nao esta
  */
-bool pilhaVazia(Pilha *pilha) {
-    if (pilha->topo == 0) {
+bool PilhaVazia(Pilha pilha) {
+    if (pilha.topo == 0) {
         return true;
     } else {
         return false;
@@ -60,8 +59,8 @@ bool pilhaVazia(Pilha *pilha) {
  * @param pilha
  * @return true se esta cheia e false se nao esta
  */
-bool pilhaCheia(Pilha *pilha) {
-    if (pilha->topo == pilha->MAX) {
+bool PilhaCheia(Pilha pilha) {
+    if (pilha.topo == pilha.MAX) {
         return true;
     } else {
         return false;
@@ -73,7 +72,7 @@ bool pilhaCheia(Pilha *pilha) {
  * @param pilha
  * @param elemento
  */
-void empilhar(Pilha *pilha, noh elemento) {
+void Empilhar(Pilha *pilha, noh elemento) {
     pilha->topo++;
     pilha->elementos[pilha->topo] = elemento;
 }
@@ -83,7 +82,7 @@ void empilhar(Pilha *pilha, noh elemento) {
  * @param pilha
  * @param elemento
  */
-void desempilhar(Pilha *pilha, noh *elemento) {
+void Desempilhar(Pilha *pilha) {
     pilha->topo--;
 }
 
@@ -92,16 +91,66 @@ void desempilhar(Pilha *pilha, noh *elemento) {
  * @param pilha
  * @return retorna o elemento do topo da pilha
  */
-noh topoPilha(Pilha *pilha) {
-    return pilha->elementos[pilha->topo];
+noh TopoPilha(Pilha pilha) {
+    return pilha.elementos[pilha.topo];
 }
 
+void GrafoCiclicoDFS (Grafo *grafo, int i, bool *grafoCiclico, Pilha *pilha, char *inicioCiclo) {
+    int j;
+
+    grafo->listaTarefas[i].descoberto = true;
+    Empilhar(pilha, grafo->listaTarefas[i]);
+
+    for (j = 1; j < 53; j++) {
+        if (grafo->matrizAdjacencias[i][j] == 1 && grafo->listaTarefas[j].inicializado) {
+            if (grafo->listaTarefas[j].descoberto && !grafo->listaTarefas[j].finalizado) {
+                *grafoCiclico = true;
+                *inicioCiclo = grafo->listaTarefas[j].tarefa;
+                return;
+            } else if (!grafo->listaTarefas[j].descoberto) {
+                GrafoCiclicoDFS(grafo, j, grafoCiclico, pilha, inicioCiclo);
+                if (*grafoCiclico) {
+                    return;
+                }
+            }
+        }
+    }
+
+    grafo->listaTarefas[i].finalizado = true;
+    Desempilhar(pilha);
+}
+
+void travessiaGrafoCiclicoDFS (Grafo *grafo, bool *grafoCiclico, Pilha *pilha, char *inicioCiclo) {
+    int i;
+
+    /**
+     * Inicializando todos false
+     */
+    for (i = 1; i < 53; i++){
+        if (grafo->listaTarefas[i].inicializado) {
+            grafo->listaTarefas[i].descoberto = false;
+            grafo->listaTarefas[i].finalizado = false;
+        }
+    }
+
+    /**
+     * Enquanto ha nos nao descobertos chamar a funcao GrafoCiclicoDFS
+     */
+    for (i = 1; i < 53; i++) {
+        if (grafo->listaTarefas[i].inicializado && !grafo->listaTarefas[i].descoberto) {
+            GrafoCiclicoDFS(grafo, i, grafoCiclico, pilha, inicioCiclo);
+        }
+    }
+}
 
 int main() {
 
     Grafo grafo;
     char linha[70];
     int i;
+    bool grafoCiclico = false;
+    char inicioCiclo;
+    Pilha pilha;
     FILE *Entrada;
     FILE *Saida;
     Entrada = fopen("entrada6.txt", "r");
@@ -114,6 +163,54 @@ int main() {
         fgets(linha, sizeof(linha), Entrada);
     }
 
+    /**
+     * Inicializacao temporario do grafo
+     */
+
+    for (int j = 0; j < 53; ++j) {
+        for (int k = 0; k < 53; ++k) {
+            grafo.matrizAdjacencias[j][k] = 0;
+        }
+    }
+
+    grafo.listaTarefas[1].inicializado = true;
+    grafo.listaTarefas[1].tarefa = 'A';
+    grafo.matrizAdjacencias[1][2] = 1;
+    grafo.matrizAdjacencias[1][6] = 1;
+
+    grafo.listaTarefas[2].inicializado = true;
+    grafo.listaTarefas[2].tarefa = 'B';
+    grafo.matrizAdjacencias[2][3] = 1;
+
+    grafo.listaTarefas[3].inicializado = true;
+    grafo.listaTarefas[3].tarefa = 'C';
+    grafo.matrizAdjacencias[3][4] = 1;
+
+    grafo.listaTarefas[4].inicializado = true;
+    grafo.listaTarefas[4].tarefa = 'D';
+    grafo.matrizAdjacencias[4][5] = 1;
+
+    grafo.listaTarefas[5].inicializado = true;
+    grafo.listaTarefas[5].tarefa = 'E';
+    grafo.matrizAdjacencias[5][3] = 1;
+
+    grafo.listaTarefas[6].inicializado = true;
+    grafo.listaTarefas[6].tarefa = 'F';
+
+    InicializarPilha(&pilha);
+
+    travessiaGrafoCiclicoDFS (&grafo, &grafoCiclico, &pilha, &inicioCiclo);
+
+    if (grafoCiclico) {
+        printf("E ciclico\n");
+        while (inicioCiclo != TopoPilha(pilha).tarefa) {
+            printf("%c ", TopoPilha(pilha).tarefa);
+            Desempilhar(&pilha);
+        }
+        printf("%c ", inicioCiclo);
+    } else {
+        printf("Erro");
+    }
 
     fclose(Entrada);
     fclose(Saida);
