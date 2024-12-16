@@ -8,18 +8,20 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 struct noh{
-    char tarefa;
-    char descricao[32];
-    int tempo;
-    bool inicializado = false;
-    bool descoberto = false;
-    bool finalizado = false;
+    char tarefa;                    //Nome da tarefa
+    char descricao[32];             //Descricao da tarefa
+    int tempo;                      //Tempo que a tarefa demora para ser realizada
+    int numeroTarefa;               //A posição da tarefa na lista de tarefas
+    bool inicializado = false;      //Marcador de inicializado para nao acessar lixo no grafo
+    bool descoberto = false;        //Marcador de descoberto para a busca no grafo
+    bool finalizado = false;        //Marcador de finalizado para a busca no grafo
 };
 
 struct Grafo{
-    noh listaTarefas[53];            //Nao utilizarei a posicao 0
-    int matrizAdjacencias[53][53];   //Nao utilizarei a posicao 0
+    noh listaTarefas[53];            //Lista de tarefas do grafo, nao utilizar a posicao 0
+    int matrizAdjacencias[53][53];   //Matriz de adjacencias do grafo, nao utilizar a posicao 0
 };
 
 /**
@@ -80,7 +82,6 @@ void Empilhar(Pilha *pilha, noh elemento) {
 /**
  * Retirar um elemento do topo da pilha
  * @param pilha
- * @param elemento
  */
 void Desempilhar(Pilha *pilha) {
     pilha->topo--;
@@ -95,32 +96,53 @@ noh TopoPilha(Pilha pilha) {
     return pilha.elementos[pilha.topo];
 }
 
-void GrafoCiclicoDFS (Grafo *grafo, int i, bool *grafoCiclico, Pilha *pilha, char *inicioCiclo) {
-    int j;
+/**
+ * Funcao para fazer a busca em profundidade em pre-ordem para determinar se ha ciclo
+ * @param grafo
+ * @param i posicao na lista de taredas
+ * @param grafoCiclico booleana para determinar se foi encontrado ciclo
+ * @param pilha
+ * @param inicioCiclo
+ */
+void GrafoCiclicoDFS (Grafo *grafo, int i, bool *grafoCiclico, Pilha *pilha, int *inicioCiclo) {
+    if (!(*inicioCiclo)) {
+        int j;
 
-    grafo->listaTarefas[i].descoberto = true;
-    Empilhar(pilha, grafo->listaTarefas[i]);
+        grafo->listaTarefas[i].descoberto = true;
+        Empilhar(pilha, grafo->listaTarefas[i]);
 
-    for (j = 1; j < 53; j++) {
-        if (grafo->matrizAdjacencias[i][j] == 1 && grafo->listaTarefas[j].inicializado) {
-            if (grafo->listaTarefas[j].descoberto && !grafo->listaTarefas[j].finalizado) {
-                *grafoCiclico = true;
-                *inicioCiclo = grafo->listaTarefas[j].tarefa;
-                return;
-            } else if (!grafo->listaTarefas[j].descoberto) {
-                GrafoCiclicoDFS(grafo, j, grafoCiclico, pilha, inicioCiclo);
-                if (*grafoCiclico) {
+        for (j = 1; j < 53; j++) {
+            if (grafo->matrizAdjacencias[i][j] == 1 && grafo->listaTarefas[j].inicializado) {
+
+                /**
+                 * Caso seja encontrado um noh descoberto e nao terminado finalizar a recurssao e indicar ciclo
+                 */
+                if (grafo->listaTarefas[j].descoberto && !grafo->listaTarefas[j].finalizado) {
+                    *grafoCiclico = true;
+                    *inicioCiclo = j;
                     return;
+                } else if (!grafo->listaTarefas[j].descoberto) {
+                    GrafoCiclicoDFS(grafo, j, grafoCiclico, pilha, inicioCiclo);
+                    if (*grafoCiclico) {
+                        return;
+                    }
                 }
             }
         }
-    }
 
-    grafo->listaTarefas[i].finalizado = true;
-    Desempilhar(pilha);
+        grafo->listaTarefas[i].finalizado = true;
+        Desempilhar(pilha);
+    }
 }
 
-void TravessiaGrafoCiclicoDFS (Grafo *grafo, bool *grafoCiclico, Pilha *pilha, char *inicioCiclo) {
+/**
+ * Funcao travessia da analise do grafo ciclico
+ * @param grafo
+ * @param grafoCiclico booleana que indica se o grafo e ou nao ciclico
+ * @param pilha
+ * @param inicioCiclo posicao do incio do ciclo na lista de tarefas
+ */
+void TravessiaGrafoCiclicoDFS (Grafo *grafo, bool *grafoCiclico, Pilha *pilha, int *inicioCiclo) {
     int i;
 
     /**
@@ -143,6 +165,36 @@ void TravessiaGrafoCiclicoDFS (Grafo *grafo, bool *grafoCiclico, Pilha *pilha, c
     }
 }
 
+/**
+ * Funcao para printar o ciclo no arquivo de saida
+ * @param pilha
+ * @param inicioCiclo
+ * @param Saida
+ */
+void PrintarCiclo(Pilha pilha, int inicioCiclo, FILE *Saida) {
+    Pilha pilhaAux;
+    InicializarPilha(&pilhaAux);
+    bool passsarParaAuxiliar = true;
+
+    while (passsarParaAuxiliar) {
+        Empilhar(&pilhaAux, TopoPilha(pilha));
+        if (TopoPilha(pilha).numeroTarefa == inicioCiclo)
+            passsarParaAuxiliar = false;
+        Desempilhar(&pilha);
+    }
+
+    while (!PilhaVazia(pilhaAux)) {
+        fprintf(Saida, "%c ", TopoPilha(pilhaAux).tarefa);
+        Desempilhar(&pilhaAux);
+    }
+}
+
+/**
+ * Funcao para fazer a busca em profundidade em pos-ordem para determinar se ha ciclo
+ * @param grafo
+ * @param i posicao na lista de taredas
+ * @param pilha
+ */
 void OrdemTopologicaDFS (Grafo *grafo, int i, Pilha *pilha) {
     int j;
 
@@ -158,6 +210,11 @@ void OrdemTopologicaDFS (Grafo *grafo, int i, Pilha *pilha) {
     Empilhar(pilha, grafo->listaTarefas[i]);
 }
 
+/**
+ * Funcao travessia da ordem topologica
+ * @param grafo
+ * @param pilha
+ */
 void TravessiaOrdemTopologicaDFS (Grafo *grafo, Pilha *pilha){
     int i;
 
@@ -181,13 +238,90 @@ void TravessiaOrdemTopologicaDFS (Grafo *grafo, Pilha *pilha){
     }
 }
 
+/**
+ * Funcao para printar a ordem topologica no arquivo de saida
+ * @param pilha
+ * @param Saida
+ */
+void PrintarOrdemTopologica (Pilha pilha, FILE *Saida) {
+    while (!PilhaVazia(pilha)) {
+        fprintf(Saida, "%c ", TopoPilha(pilha).tarefa);
+        Desempilhar(&pilha);
+    }
+}
+
+/**
+ *
+ * @param grafo
+ * @param pilha
+ * @param TMT tempo minimo de realizacao de uma tarefa
+ * @param predecessor guardar o noh predecessor
+ * @param ultimaTarefa guardar a ultima tarefa do caminho critico
+ */
+void CaminhoCritico (Grafo *grafo, Pilha *pilha, int *TMT, int *predecessor, int *ultimaTarefa) {
+    int i;
+    int maiorAntecessor;
+
+    for (i = 0; i < 53; ++i)
+        TMT[i] = 0;
+
+    *ultimaTarefa = 0;
+
+    while (!PilhaVazia(*pilha)) {
+        maiorAntecessor = 0;
+        for (i = 1; i < 53; ++i) {
+            if (grafo->matrizAdjacencias[i][TopoPilha(*pilha).numeroTarefa] == 1 && TMT[i] > TMT[maiorAntecessor])
+                maiorAntecessor = i;
+        }
+
+        TMT[TopoPilha(*pilha).numeroTarefa] = TopoPilha(*pilha).tempo + TMT[maiorAntecessor];
+        predecessor[TopoPilha(*pilha).numeroTarefa] = maiorAntecessor;
+
+        if (TMT[TopoPilha(*pilha).numeroTarefa] > TMT[*ultimaTarefa])
+            *ultimaTarefa = TopoPilha(*pilha).numeroTarefa;
+
+        Desempilhar(pilha);
+    }
+}
+
+/**
+ * Funcao para printar o caminho critico no arquivo de saida
+ * @param grafo
+ * @param predecessor
+ * @param ultimaTarefa
+ * @param Saida
+ */
+void PrintarCaminhoCritico (Grafo *grafo, int *predecessor, int ultimaTarefa, FILE *Saida) {
+
+    Pilha pilha;
+    int i = ultimaTarefa;
+
+    InicializarPilha(&pilha);
+
+    while (i != 0) {
+        Empilhar(&pilha, grafo->listaTarefas[i]);
+        i = predecessor[i];
+    }
+
+    while (!PilhaVazia(pilha)) {
+        fprintf(Saida, "  %c   %s%2d\n", TopoPilha(pilha).tarefa, TopoPilha(pilha).descricao, TopoPilha(pilha).tempo);
+        Desempilhar(&pilha);
+    }
+}
+
+
 int main() {
 
     Grafo grafo;
-    char linha[70];
-    int i;
-    bool grafoCiclico = false;
-    char inicioCiclo;
+    char linha[70];              //Variavel para pular linhas desnecessarias no arquivo de entrada
+    char aux;                    //Variavel auxiliar para a leitura de variaveis
+    int i, j;
+    bool grafoCiclico = false;   //Booleana para identificar se ha ciclo
+    int inicioCiclo;             //Caso haja um ciclo, guardar a posicao da tarefa onde iniciou o ciclo
+    int TMT[53];                 //Tempo minimo para a realizacao de uma tarefa
+    int predecessor[53];         //Guardar o predecessor na ordem topologica
+    int ultimaTarefa;            //Guardar a posicao da ultima tarefa no caminho critico
+    bool lerArquivo = true;
     Pilha pilha;
     FILE *Entrada;
     FILE *Saida;
@@ -202,57 +336,103 @@ int main() {
     }
 
     /**
-     * Inicializacao temporario do grafo
+     * Leitura dos dados
      */
-
     for (int j = 0; j < 53; ++j) {
         for (int k = 0; k < 53; ++k) {
             grafo.matrizAdjacencias[j][k] = 0;
         }
     }
 
-    grafo.listaTarefas[1].inicializado = true;
-    grafo.listaTarefas[1].tarefa = 'A';
-    grafo.matrizAdjacencias[1][2] = 1;
-    grafo.matrizAdjacencias[1][6] = 1;
+    while (lerArquivo) {
+        fgets(linha, 2, Entrada);
+        fscanf(Entrada, " %c", &aux);
+        fgets(linha, 4, Entrada);
 
-    grafo.listaTarefas[2].inicializado = true;
-    grafo.listaTarefas[2].tarefa = 'B';
-    grafo.matrizAdjacencias[2][3] = 1;
+        if (aux == '-') {
+            lerArquivo = false;
+        } else {
+            if (aux >= 65 && aux <= 90) {
+                i = aux % 64;
+            } else if (aux >= 97 && aux <= 122) {
+                i = aux % 96 + 26;
+            }
 
-    grafo.listaTarefas[3].inicializado = true;
-    grafo.listaTarefas[3].tarefa = 'C';
-    grafo.matrizAdjacencias[3][4] = 1;
+            grafo.listaTarefas[i].tarefa = aux;
+            grafo.listaTarefas[i].inicializado = true;
+            grafo.listaTarefas[i].numeroTarefa = i;
 
-    grafo.listaTarefas[4].inicializado = true;
-    grafo.listaTarefas[4].tarefa = 'D';
-    grafo.matrizAdjacencias[4][5] = 1;
+            fgets(grafo.listaTarefas[i].descricao, 32, Entrada);
+            fscanf(Entrada, " %d", &grafo.listaTarefas[i].tempo);
+            fgets(linha, 5, Entrada);
+            fscanf(Entrada, " %c", &aux);
 
-    grafo.listaTarefas[5].inicializado = true;
-    grafo.listaTarefas[5].tarefa = 'E';
-    grafo.matrizAdjacencias[5][3] = 1;
+            if (aux >= 65 && aux <= 90) {
+                j = aux % 64;
+                grafo.matrizAdjacencias[j][i] = 1;
+            } else if (aux >= 97 && aux <= 122) {
+                j = aux % 96 + 26;
+                grafo.matrizAdjacencias[j][i] = 1;
+            }
+            fscanf(Entrada, "%c", &aux);
+            while (aux != '\n') {
+                fscanf(Entrada, "%c", &aux);
+                if (aux >= 65 && aux <= 90) {
+                    j = aux % 64;
+                    grafo.matrizAdjacencias[j][i] = 1;
+                } else if (aux >= 97 && aux <= 122) {
+                    j = aux % 96 + 26;
+                    grafo.matrizAdjacencias[j][i] = 1;
+                }
+            }
+        }
+    }
 
-    grafo.listaTarefas[6].inicializado = true;
-    grafo.listaTarefas[6].tarefa = 'F';
+    fprintf(Saida, "Exemplo de arquivo de saida\n"
+                       "PERT/CPM\n"
+                       "Pode escrever qualquer coisa no cabecalho.\n"
+                       "Coloque exatamente 5 linhas antes do traco.\n"
+                       "\n"
+                       "------------------------------------------------------------\n\n");
 
     InicializarPilha(&pilha);
 
-    travessiaGrafoCiclicoDFS (&grafo, &grafoCiclico, &pilha, &inicioCiclo);
+    TravessiaGrafoCiclicoDFS(&grafo, &grafoCiclico, &pilha, &inicioCiclo);
 
     if (grafoCiclico) {
-        printf("E ciclico\n");
-        while (inicioCiclo != TopoPilha(pilha).tarefa) {
-            printf("%c ", TopoPilha(pilha).tarefa);
-            Desempilhar(&pilha);
-        }
-        printf("%c ", inicioCiclo);
+
+        fprintf(Saida, "Ciclo:\n\n");
+
+        PrintarCiclo(pilha, inicioCiclo, Saida);
+
+        fprintf(Saida, "\n\nE impossivel encontrar o caminho critico, pois o grafo nao e aciclico\n");
+
     } else {
+
         TravessiaOrdemTopologicaDFS(&grafo, &pilha);
-        while (!PilhaVazia(pilha)) {
-            printf("%c ", TopoPilha(pilha).tarefa);
-            Desempilhar(&pilha);
-        }
+
+        fprintf(Saida, "UMA ORDENACAO TOPOLOGICA:\n\n");
+
+        PrintarOrdemTopologica(pilha, Saida);
+
+        fprintf(Saida, "\n\n------------------------------------------------------------\n\n");
+
+        CaminhoCritico(&grafo, &pilha, TMT, predecessor, &ultimaTarefa);
+
+        fprintf(Saida, "TEMPO MINIMO PARA O PROJETO:  %d semanas", TMT[ultimaTarefa]);
+
+        fprintf(Saida, "\n\n------------------------------------------------------------\n"
+                "\n"
+                "CAMINHO CRITICO:\n"
+                "\n"
+                "TAREFA        DESCRICAO           DURACAO\n\n");
+
+        PrintarCaminhoCritico(&grafo, predecessor, ultimaTarefa, Saida);
+
     }
+
+    fprintf(Saida, "\n"
+                   "------------------------------------------------------------");
 
     fclose(Entrada);
     fclose(Saida);
